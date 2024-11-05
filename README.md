@@ -118,6 +118,8 @@ An Excel file (data.xlsx) containing sample data should download automatically.
 
 ### Tech Stack
 
-Backend: Node.js, Express, ExcelJS
-Frontend: React, Axios
-Other: CORS middleware for cross-origin support
+#### Backend: Node.js, Express, ExcelJS
+
+#### Frontend: React, Axios
+
+#### Other: CORS middleware for cross-origin support
