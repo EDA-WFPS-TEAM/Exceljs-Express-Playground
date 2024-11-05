@@ -43,7 +43,7 @@ Ensure you have the following installed:
 Clone this repository to your local machine:
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/EDA-WFPS-TEAM/Exceljs-Express-Playground.git
 cd excel-playground
 ```
 
