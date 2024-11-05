@@ -75,7 +75,8 @@ Install dependencies:
 npm install
 ```
 
-Running the Project
+### Running the Project
+
 Backend (Express Server)
 In the backend directory, start the server:
 
