@@ -100,14 +100,16 @@ If your setup requires environment variables, you can create .env files in both 
 
 For example:
 
-Backend (backend/.env):
+#### Backend (backend/.env):
 
 PORT=3001
-Frontend (frontend/.env):
+
+#### Frontend (frontend/.env):
 
 REACT_APP_API_URL=http://localhost:3001
 
-Testing the Excel Download:
+#### Testing the Excel Download:
+
 Visit the React app at http://localhost:3000.
 
 Click the Download Excel button.
