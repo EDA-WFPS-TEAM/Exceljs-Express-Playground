@@ -33,55 +33,13 @@ const applications = [
     time: "5:00 PM - 6:00 PM",
     month: "January",
   },
-  {
-    organization: "Deer Creek Warriors",
-    event: "Youth Volleyball",
-    location: "Deer Creek Elementary School",
-    days: ["Wednesday"],
-    time: "6:30 PM - 8:00 PM",
-    month: "January",
-  },
-  {
-    organization: "Aurora Stars",
-    event: "Basketball Camp",
-    location: "Aurora Elementary School",
-    days: ["Saturday"],
-    time: "9:00 AM - 11:00 AM",
-    month: "January",
-  },
-  {
-    organization: "Freedom Flyers",
-    event: "Junior Basketball",
-    location: "Freedom Elementary School",
-    days: ["Monday", "Wednesday"],
-    time: "6:00 PM - 7:30 PM",
-    month: "January",
-  },
-  {
-    organization: "Harwood Hawks",
-    event: "Volleyball Practice",
-    location: "Harwood Elementary School",
-    days: ["Thursday"],
-    time: "4:00 PM - 5:30 PM",
-    month: "January",
-  },
-  {
-    organization: "Legacy Lions",
-    event: "Soccer Practice",
-    location: "Legacy Elementary School",
-    days: ["Friday"],
-    time: "7:00 PM - 8:30 PM",
-    month: "January",
-  },
-  // Add more entries if needed
 ];
 
 async function generateSchedule() {
-  // Create a new workbook and worksheet for the schedule
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet("Gym Schedule - January");
 
-  // Set up column headers based on the observed structure
+  // Set up column headers with styling
   worksheet.columns = [
     { header: "Time Slot", key: "time", width: 15 },
     { header: "Aurora ES", key: "aurora", width: 30 },
@@ -100,21 +58,61 @@ async function generateSchedule() {
     { header: "Willow Park ES", key: "willowPark", width: 30 },
   ];
 
-  // Populate schedule based on sample data
+  // Style headers
+  worksheet.getRow(1).font = { bold: true, color: { argb: "FFFFFF" } };
+  worksheet.getRow(1).fill = {
+    type: "pattern",
+    pattern: "solid",
+    fgColor: { argb: "4F81BD" },
+  };
+  worksheet.getRow(1).border = {
+    bottom: { style: "thin" },
+  };
+
+  // Populate schedule with sample data and add formatting
   applications.forEach((app) => {
     app.days.forEach((day) => {
-      worksheet.addRow({
+      const row = worksheet.addRow({
         time: `${app.time} (${day})`,
         [app.location
           .split(" ")[0]
           .toLowerCase()]: `${app.organization} (${app.event})`,
       });
+
+      // Style time slot column
+      row.getCell("time").font = { bold: true, color: { argb: "1F497D" } };
+      row.getCell("time").fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: "DCE6F1" },
+      };
+
+      // Style organization/event columns
+      Object.keys(row.values).forEach((key, index) => {
+        if (index > 1) {
+          // Skip the first cell (time slot)
+          row.getCell(index).font = { italic: true, color: { argb: "4BACC6" } };
+          row.getCell(index).alignment = {
+            vertical: "middle",
+            horizontal: "center",
+          };
+        }
+      });
+
+      // Add borders to each cell in the row
+      row.eachCell({ includeEmpty: true }, (cell) => {
+        cell.border = {
+          top: { style: "thin" },
+          bottom: { style: "thin" },
+          left: { style: "thin" },
+          right: { style: "thin" },
+        };
+      });
     });
   });
 
-  // Save the workbook to a file
   await workbook.xlsx.writeFile("Gym_Schedule_Output.xlsx");
-  console.log("Schedule generated: Gym_Schedule_Output.xlsx");
+  console.log("Styled schedule generated: Gym_Schedule_Output.xlsx");
 }
 
 // Run the script

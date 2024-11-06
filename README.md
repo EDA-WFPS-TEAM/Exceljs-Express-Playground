@@ -116,6 +116,18 @@ Click the Download Excel button.
 
 An Excel file (data.xlsx) containing sample data should download automatically.
 
+#### Testing the Excel Generator:
+
+Navigate to the backend directory from the root and run the following:
+
+```bash
+cd backend
+```
+
+```bash
+node generateSchedule.js
+```
+
 ### Tech Stack
 
 #### Backend: Node.js, Express, ExcelJS
